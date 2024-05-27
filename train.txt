@@ -1,0 +1,3 @@
+Madurai_express,1001,8,6,Chennai,Madurai,Tambaram,0,Chengalpattu,40,Villupuram,130,Ariyalur,230,Trichy,300,Madurai,450
+Chennai_express,1002,8,6,Chennai,Kanyakumari,Tambaram,0,Chengalpattu,40,Villupuram,130,Ariyalur,230,Trichy,300,Madurai,450,Trinulveli,550,Kanyakumari,700
+Perambalur_express,1003,8,6,Chennai,Perambalur,Tambaram,0,Chengalpattu,40,Villupuram,130,Ariyalur,230,Perambalur,264
