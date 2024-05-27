@@ -1,90 +1,80 @@
+#ifndef TRAIN_CPP
+#define TRAIN_CPP
+
 #include<iostream>
-#include<train.hpp>
 #include<fstream>
-#include "fun.hpp"
+#include <sstream>
+#include <string>
 #include "journey.hpp"
+#include "train.hpp"
 #include "struct.hpp"
+
 
 using namespace std;
 
 vector<Train*>train;
-
 vector<Seat*> ret_tick;
 void Journey :: create_coaches(int num_coaches, int seats_per_coach) 
-{
-		  
-		for (int i = 0; i < num_coaches; ++i) 
+{	  
+	for (int i = 0; i < num_coaches; ++i) 
+	{
+		string coach_name = 'C' + to_string(i + 1);	      
+	  	if(i<=3)
 		{
-			string coach_name = 'C' + to_string(i + 1);
-		      
-		  if(i<=3)
-		  {
-		  	cout<<"enter"<<endl;
-		  	vector<Seat*>* seats=new vector<Seat*>();
-		      	seats->resize(seats_per_coach,nullptr);
-		      	cout<<seats<<endl;
-		      	sitter_coaches[coach_name] = seats;
-		      }
-		      else if(i<=5)
-		      {
-				    vector<Seat*>* seats=new vector<Seat*>();
-		      	seats->resize(seats_per_coach/2,nullptr);
-				    
-				    
-				    sleeper_coaches[coach_name] = seats;
-		      
-		      }
-		      else
-		      {
-		      	vector<Seat*>* seats=new vector<Seat*>();
-		      	seats->resize(seats_per_coach/2,nullptr);
-		      	Ac_sleeper_coaches[coach_name] = seats;
-		      }
-
-		      
-		  }
-   
+		  	vector<Seat*>* seats=new vector<Seat*>(seats_per_coach,nullptr);
+	      	sitter_coaches[coach_name] = seats;
+	    }
+	    else if(i<=5)
+		{
+	    	vector<Seat*>* seats=new vector<Seat*>(seats_per_coach,nullptr);
+		    sleeper_coaches[coach_name] = seats;
+		}
+		else
+		{
+			vector<Seat*>* seats=new vector<Seat*>(seats_per_coach,nullptr);
+		    Ac_sleeper_coaches[coach_name] = seats;
+		}	      
 	}
+}
 	
 void Journey :: delete_ticket(Ticket* ticket)
 {
 	string coach=ticket->get_coach();
-	string seat=ticket->get_seat();
+	int seat=ticket->get_seat();
 	string type=ticket->get_coach_type();
+	map<string,vector<Seat*>*>* coaches;
 	if(type=="2S")
 	{
-		map<string,vector<Seat*>*>* coaches=&sitter_coaches
-			
+		coaches=&sitter_coaches;		
 	}
 	else if(type=="Sleeper")
 	{
-		map<string,vector<Seat*>*>* coaches=&sleeper_coaches
-			
+		coaches=&sleeper_coaches;
 	}
 	else if(type=="Ac_sleeper")
 	{
-		map<string,vector<Seat*>*>* coaches=&Ac_sleeper_coaches
+		coaches=&Ac_sleeper_coaches;
 	}
 	
 	for(auto it : *coaches)
 	{
-		if(it->first==coach)
+		if(it.first == coach)
 		{
-			for(auto i:it->second)
+			for(Seat*& i:*(it.second))
 			{
-				if(i->get_seat_num())
+				if(i!=NULL && i->get_seat_num() == seat)
 				{
-					i->free_seat(ticket->get_des_station_id(),ticket->det_from_station_id(),ticket->get_ticket_id());
+					if(i->free_seat(ticket->get_des_station_id(),ticket->get_from_station_id(),ticket->get_ticket_id())) i=NULL;
+					return;
 				}
 			}
 		}
-	}
-	
+	}	
 }
 
 int create_train()
 {
-		ifstream file("/home/arun/train_reservation/txt/train.txt");
+		ifstream file("/home/azhagarasan/Downloads/azhagarasan/train_reservation/train.txt");
     if(!file.is_open())
     {
         cout << "File open error" << endl;
@@ -93,34 +83,29 @@ int create_train()
     string line;
     while (getline(file, line))
     {
-        map<int , struct station*> all_stations;
+        map<int , struct station*>* all_stations = new map<int, struct station*>;
         stringstream ss(line);
         string name;
         int number, coaches, seats,kilometer;
-				string from, destination, station;
-        getline(ss, name, ',');
-        
+		string from, destination, sta;
+        getline(ss, name, ',');        
         ss >> number; ss.ignore();
         ss >> coaches; ss.ignore();
         ss >> seats; ss.ignore();
-        getline(ss,from,",");
-        getline(ss,destination,",");
+        getline(ss,from,',');
+        getline(ss,destination,',');
         int i=0;
-        while((getline(ss,station,",")) and (ss >> kilometer; ss.ignore()))
+        while((getline(ss,sta,',')) and (ss >> kilometer))
         {
-						i++;
-						station * temp_station=new{station,kilometer};
-        		
-        	all_station[i]=temp_station;
+			i++;
+			station* temp_station=new station{sta,kilometer};		
+        	(*all_stations)[i]=temp_station;
+			ss.ignore();
         }
-        
-        Train* ptr = new Train(name, number,coaches,seats,&all_station,destination,from);
-				train.push_back(ptr);
-				
+        Train* ptr = new Train(name, number,coaches,seats,all_stations,destination,from);
+		train.push_back(ptr);				
     }
-    
     return 0;
-
 }
 
 
@@ -128,7 +113,6 @@ void create_journey(int num)
 {
 	for(Train * ptr:train)
 	{
-		
 		if(ptr->get_train_number()==num)
 		{
 			int num=ptr->get_train_number();
@@ -140,20 +124,14 @@ void create_journey(int num)
 			cin>>day;
 			Journey* temp=new Journey(name,num,day,ptr);
 			temp->create_coaches(coaches, seats);
-			ptr->add_journey(temp); 
-			
-		
+			ptr->add_journey(temp);
 		}
 	}
-
 }
 
-
-void seat_availability(Journey* ptr)
+void seat_availability(Journey* ptr,string onboard,string destination)
 {
-			ptr->seats_available();
-		
-
+	ptr->seats_available(onboard,destination);
 }
 int get_tran(Train* obj)
 {
@@ -173,5 +151,5 @@ string get_Day(Journey* obj)
 vector<Ticket*>* tick(Journey* obj,string coaches,int count,string destination, string from,User* ptr)
 {
 	return obj->booking(coaches,count, destination, from,ptr);
-
 }
+#endif

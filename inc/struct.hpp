@@ -1,90 +1,56 @@
-#include<iostream>
-#include<string>
-#include<vector>
+#ifndef STRUCTS_HPP
+#define STRUCTS_HPP
+
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
-struct name
-{
-	vector<User*>store_obj;	
-};
-struct age
-{
-	struct name* left;
-	struct name* right;
-	
-};
-struct gender
-{
-	struct age* ptr_left;
-	struct age* ptr_right;
+struct User;
+
+struct name {
+    vector<User*> store_obj;
 };
 
-struct user
-{
-	struct gender* ptr_left;
-	struct gender* ptr_right;
+struct age {
+    struct name* left;
+    struct name* right;
 };
 
-struct station
-{
-	
-	string station_name;
-	int dis_from_start;
+struct gender {
+    struct age* ptr_left;
+    struct age* ptr_right;
 };
 
-struct name a_to_m_male59;
+struct user {
+    struct gender* ptr_left;
+    struct gender* ptr_right;
+};
 
-struct name a_to_m_female59;
+struct station {
+    string station_name;
+    int dis_from_start;
+};
 
-struct name a_to_m_male0;
+// Extern declarations of the global variables
+extern struct name a_to_m_male59;
+extern struct name a_to_m_female59;
+extern struct name a_to_m_male0;
+extern struct name a_to_m_female0;
+extern struct name n_to_z_male59;
+extern struct name n_to_z_female59;
+extern struct name n_to_z_male0;
+extern struct name n_to_z_female0;
+extern struct age male_above59;
+extern struct age male_below59;
+extern struct age female_above59;
+extern struct age female_below59;
+extern struct gender male;
+extern struct gender female;
+extern struct user tree_user;
 
-struct name a_to_m_female0;
+// Function declarations
+void init();
 
-struct name n_to_z_male59;
+#endif // STRUCTS_HPP
 
-struct name n_to_z_female59;
-	
-struct name n_to_z_male0;
-	
-struct name n_to_z_female0;
-	
-struct age male_above59;
-
-struct age male_below59;
-	
-struct age female_above59;
-
-struct age female_below59;
-	
-struct gender male;
-	
-struct gender female;
-	
-struct user tree_user;
-
-void init()
-{
-	male_above59.left=&a_to_m_male59;
-	male_above59.right=&n_to_z_male59;
-	
-	male_below59.left=&a_to_m_male0;
-	male_below59.right=&n_to_z_male0;
-	
-	female_above59.left=&a_to_m_female59;
-	female_above59.right=&n_to_z_female59;
-	
-	
-	female_below59.left=&a_to_m_female0;
-	female_below59.right=&n_to_z_female0;
-	
-	male.ptr_left=&male_above59;
-	male.ptr_right=&male_below59;
-	
-	female.ptr_left=&female_above59;
-	female.ptr_right=&female_below59;
-	
-	tree_user.ptr_left=&male;
-	tree_user.ptr_right=&female;
-
-
-}

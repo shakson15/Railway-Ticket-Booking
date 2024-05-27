@@ -1,10 +1,13 @@
+#ifndef TICKET_H
+#define TICKET_H
+
 #include <iostream>
 #include <string>
 #include<vector>
 #include<map>
 #include <iomanip>
 using namespace std;
-int i=0;
+extern int i;
 class Ticket
 {
 	int seat_num;
@@ -24,9 +27,7 @@ class Ticket
 	int train_number;
 	public:
 	Ticket(string passenger_name, int age,string gender, string destination, string from,int distance,int cost,int des_id,int from_id,int j_id,int train_number,string coach_type)
-	{
-		
-		
+	{	
 		this->passenger_name=passenger_name;
 		this->age=age;
 		this->gender=gender;
@@ -76,7 +77,7 @@ class Ticket
 	}
 	int get_des_station_id()
 	{
-		return des_station_id
+		return des_station_id;
 	}
 	int get_from_station_id()
 	{
@@ -91,4 +92,4 @@ class Ticket
 			
 	}
 };
-
+#endif

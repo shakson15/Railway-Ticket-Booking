@@ -1,19 +1,16 @@
+#ifndef MAIN_CPP
+#define MAIN_CPP
+
 #include <iostream>
 #include<vector>
 #include<string>
 #include "user.hpp"
 #include "struct.hpp"
 #include "fun.hpp"
-#include "journey.hpp"
-
-
+#include <limits>
 using namespace std;
-int id=0;
-
+int id = 0;
 class Train;
-class Journey;
-
-
 
 extern vector<Train*> train;
 string user_id;
@@ -23,7 +20,7 @@ void binary_tree(User* temp)
 	if(temp->gender=="male")
 	{
 		user_id=to_string(1);
-		auto ptr=tree_user.ptr_left; //user root  gender male
+		auto ptr=tree_user.ptr_left; 
 		if(temp->age>=59)
 		{
 			user_id=user_id+to_string(1);
@@ -35,6 +32,7 @@ void binary_tree(User* temp)
 				auto temp_name=temp_age->left;
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);
+				cout << "User ID : " << user_id << endl;
 			}
 			else
 			{
@@ -43,7 +41,7 @@ void binary_tree(User* temp)
 				auto temp_name=temp_age->right;
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);
-				
+				cout << "User ID : " << user_id << endl;
 			}
 		}
 		else
@@ -59,6 +57,7 @@ void binary_tree(User* temp)
 				user_id=user_id+to_string(temp->id);
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);
+				cout << "User ID : " << user_id << endl;
 			}
 			else
 			{
@@ -67,7 +66,7 @@ void binary_tree(User* temp)
 				user_id=user_id+to_string(temp->id);
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);	
-			
+				cout << "User ID : " << user_id << endl;
 			}
 			
 		}
@@ -88,6 +87,7 @@ void binary_tree(User* temp)
 				auto temp_name=temp_age->left;
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);
+				cout << "User ID : " << user_id << endl;
 			}
 			else
 			{
@@ -96,6 +96,7 @@ void binary_tree(User* temp)
 				auto temp_name=temp_age->right;
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);	
+				cout << "User ID : " << user_id << endl;
 			}
 		}
 		else
@@ -109,6 +110,7 @@ void binary_tree(User* temp)
 				user_id=user_id+to_string(temp->id);
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);
+				cout << "User ID : " << user_id << endl;
 			}
 			else
 			{
@@ -118,6 +120,7 @@ void binary_tree(User* temp)
 				auto temp_name=temp_age->right;
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);	
+				cout << "User ID : " << user_id << endl;
 			}
 			
 		}
@@ -127,14 +130,14 @@ void binary_tree(User* temp)
 void create_user()
 {
 	id++;
-	cout<<"entert the user name:";
+	cout<<"enter the user name:";
 	string name;
 	cin>>name;
 	lable:
 	cout<<"enter the age:";
 	int age;
 	cin>>age;
-	if (age>150 || age<0) goto lable;
+	if (age>120 || age<0) goto lable;
 	string address;
 	cout<<"enter the address:";
 	cin>>address;
@@ -158,7 +161,6 @@ void print_fun(struct name * ptr)
 	}
 
 }
-
 
 vector<User*>* search_user(string user_id)
 {
@@ -240,7 +242,6 @@ User* obj_return(vector<User*>* temp,string user_id)
 	int i=0;
 	for(User* ptr:*temp)
 	{
-		cout<<"enter"<<endl;
 		if(ptr->user_id==user_id)
 		{
 			return ptr;
@@ -255,6 +256,7 @@ User* obj_return(vector<User*>* temp,string user_id)
 	}
 	return NULL;
 }
+
 void search(User* ptr)
 {
 	if(ptr!=NULL)		
@@ -264,6 +266,7 @@ void search(User* ptr)
 	
 
 }
+
 void delete_element(vector<User*>* temp,string user_id) {
     auto it = temp->begin();
     while (it != temp->end()) {
@@ -303,7 +306,7 @@ void print_particular()
 		search(ptr);
 	}
 }
-void delete_particular(int id)
+void delete_particular(string id)
 {
 	vector<User*>* temp;
 	temp=search_user(id);
@@ -314,7 +317,6 @@ void delete_particular(int id)
 	else delete_element(temp,id);
 	
 }
-
 
 void show_userinfo()
 {
@@ -330,8 +332,6 @@ void show_userinfo()
 
 }
 
-
-
 void admin()
 {
 	while(1)
@@ -346,6 +346,14 @@ void admin()
 		
 		int choices;
 		cin>>choices;
+		if (cin.fail()) 
+		{
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      		cout << "Invalid input. Please enter a number." << endl;
+        	continue;
+       	}
+		string id;
 		switch(choices)
 		{
 			case 1:
@@ -355,13 +363,10 @@ void admin()
 				print_particular();
 				break;
 			case 3:
-				
 				cout<<"enter the user id for delete:";
-				string id;
 				cin>>id;
 				delete_particular(id);
-				
-				break;
+				return;
 			case 4:
 				create_train();
 				break;	
@@ -378,7 +383,6 @@ void admin()
 			case 6:
 				return;
 		}	
-
 	}
 }
 
@@ -392,6 +396,14 @@ void user()
 			cout<<setw(10)<<"3"<<setw(10)<<"-"<<setw(20)<<"EXIT"<<endl;
 			int choices;
 			cin>>choices;
+			
+			if (cin.fail()) 
+			{
+            			cin.clear();
+            	                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            			cout << "Invalid input. Please enter a number." << endl;
+            			continue;
+        		}
 			
 			switch(choices)
 			{
@@ -421,6 +433,13 @@ int main()
 		cout<<setw(10)<<"3"<<setw(10)<<"-"<<setw(20)<<"EXIT"<<endl;
 		int choices;
 		cin>>choices;
+		if (cin.fail()) 
+			{
+            			cin.clear();
+            	                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            			cout << "Invalid input. Please enter a number." << endl;
+            			continue;
+        		}
 		switch(choices)
 		{
 			case 1:
@@ -435,3 +454,4 @@ int main()
 	}
 	
 }
+#endif

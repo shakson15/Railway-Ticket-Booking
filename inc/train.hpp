@@ -6,10 +6,9 @@
 #include<vector>
 #include<map>
 #include <iomanip>
+#include <struct.hpp>
 using namespace std;
-
 class Journey;
-class Ticket;
 class Train
 {
 	private:
@@ -23,7 +22,7 @@ class Train
 		vector<Journey*> journey;
 		
 		public:
-		Train(string name,int number,int coaches, int seats,map<int,struct station*>* station;,string destination,string from)
+		Train(string name,int number,int coaches, int seats,map<int,struct station*>* station,string destination,string from)
 		{
 			this->train_num=number;
 			this->train_name=name;
@@ -31,11 +30,7 @@ class Train
 			this->seats=seats;
 			this->destination=destination;
 			this->from=from;
-			this->station=station;
-			
-			
-			
-			
+			this->station=station;		
 		}
 		int get_train_number()
 		{
@@ -73,15 +68,7 @@ class Train
 		}
 		map<int,struct station *>* get_station()
 		{
-			return this->station;
+			return station;
 		}
 };
-
-
-
-int get_tran(Train* obj);
-vector<Journey*>* get_jour(Train* obj);
-string get_Day(Journey* obj);
-vector<Seat*>* tick(Journey* obj,string coaches,int count);
 #endif
-
