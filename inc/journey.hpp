@@ -23,6 +23,7 @@ class Journey
 	string destination;
 	string from;
 	int si = 0;
+
 	public:
 	map<int,struct station*>* jour_station;
 	map<string, vector<Seat*>*> sitter_coaches;
@@ -30,32 +31,34 @@ class Journey
     map<string, vector<Seat*>*> Ac_sleeper_coaches;
     vector<Seat*>* seats;
     vector<Ticket*> train_ticket;
-    Train* train;
-   
-		Journey(string name,int number,string day,Train* obj)
-		{
-			this->train_number=number;
-			this->train_name=name;
-			this->day=day;
-			this->train=obj;
-			this->destination= destination;
-			this->from=from;
-			this->jour_station=obj->get_station();
-			Journ_id++;
-			this->journey_id=Journ_id;
-		}
-		int get_train_number()
-		{
-			return this->train_number;
-		}
-		string get_day()
-		{
-			return this->day;
-		}
-		int get_Journey_id()
-		{
-			return journey_id;
-		}
+    Train* train;  
+	Journey(string name,int number,string day,Train* obj)
+	{
+		this->train_number=number;
+		this->train_name=name;
+		this->day=day;
+		this->train=obj;
+		this->destination= destination;
+		this->from=from;
+		this->jour_station=obj->get_station();
+		Journ_id++;
+		this->journey_id=Journ_id;
+	}
+
+	int get_train_number()
+	{
+		return this->train_number;
+	}
+
+	string get_day()
+	{
+		return this->day;
+	}
+
+	int get_Journey_id()
+	{
+		return journey_id;
+	}
   
 	void check(string from,string destination,map<string, vector<Seat*>*>* coaches)
 	{
@@ -100,22 +103,19 @@ class Journey
 
 	void seats_available(string from,string destination)
 	{
-			cout<<"sitter coaches:"<<endl;
-			cout<<setw(10)<<"Coaches"<<setw(20)<<"Seats Availability"<<endl;
-			
-			check(from,destination,&sitter_coaches);
-			
-			cout<<endl;
-			cout<<"Sleeper coaches:"<<endl;
-			cout<<setw(10)<<"Coaches"<<setw(20)<<"Seats Availability"<<endl;
-			
-			check(from,destination,&sleeper_coaches);
-			
-			cout<<endl;
-			cout<<"AC Sleeper coaches:"<<endl;
-			cout<<setw(10)<<"Coaches"<<setw(20)<<"Seats Availability"<<endl;
-			
-			check(from,destination,&Ac_sleeper_coaches);
+		cout<<"sitter coaches:"<<endl;
+		cout<<setw(10)<<"Coaches"<<setw(20)<<"Seats Availability"<<endl;		
+		check(from,destination,&sitter_coaches);
+	
+		cout<<endl;
+		cout<<"Sleeper coaches:"<<endl;
+		cout<<setw(10)<<"Coaches"<<setw(20)<<"Seats Availability"<<endl;		
+		check(from,destination,&sleeper_coaches);
+		
+		cout<<endl;
+		cout<<"AC Sleeper coaches:"<<endl;
+		cout<<setw(10)<<"Coaches"<<setw(20)<<"Seats Availability"<<endl;		
+		check(from,destination,&Ac_sleeper_coaches);
 	}
 	
 	bool seat_count(map<string, vector<Seat*>*>* coaches, int count,int source_id,int destination_id)

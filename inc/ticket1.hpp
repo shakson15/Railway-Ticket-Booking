@@ -15,7 +15,7 @@ class Seat
     vector<int> station_num;
     vector<int> ticket_id;
 
-public:
+	public:
     Seat(int Seat_num, int dest_station_id, int from_station_id, int id)
     {
         this->seat_num = Seat_num;
@@ -60,38 +60,36 @@ public:
 	bool free_seat(int destination, int source, int id) 
 	{
 		for (auto i = ticket_id.begin(); i != ticket_id.end(); )
-    		{
-        		if (*i == id)
-        		{
-            			i = ticket_id.erase(i); 
-        		}
-        		else
-        		{
-            			++i;
-        		}
-    		}
-
+    	{
+        	if (*i == id)
+        	{
+         		i = ticket_id.erase(i); 
+        	}
+        	else
+       		{
+      			++i;
+       		}
+    	}
 		for (int j = source; j <= destination; ++j)
-    		{
-        		for (auto it = station_num.begin(); it != station_num.end(); )
-        		{
-            			if (*it == j)
-            			{
-                			it = station_num.erase(it);  
-            			}
-            			else
-            			{
-                			++it;
-            			}
-        		}
-    		}
+    	{
+      		for (auto it = station_num.begin(); it != station_num.end(); )
+       		{
+        		if (*it == j)
+       			{
+             		it = station_num.erase(it);  
+            	}
+            	else
+            	{
+          			++it;
+           		}
+       		}
+   		}
   		if(station_num.empty())
   		{
   			return true;
   		}
   		else return false;
 	}
-
 };
 
 #endif

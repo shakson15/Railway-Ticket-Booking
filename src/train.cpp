@@ -9,11 +9,11 @@
 #include "train.hpp"
 #include "struct.hpp"
 
-
 using namespace std;
 
 vector<Train*>train;
 vector<Seat*> ret_tick;
+
 void Journey :: create_coaches(int num_coaches, int seats_per_coach) 
 {	  
 	for (int i = 0; i < num_coaches; ++i) 
@@ -74,7 +74,7 @@ void Journey :: delete_ticket(Ticket* ticket)
 
 int create_train()
 {
-		ifstream file("/home/azhagarasan/Downloads/azhagarasan/train_reservation/train.txt");
+	ifstream file("/home/azhagarasan/Downloads/azhagarasan/train_reservation/train.txt");
     if(!file.is_open())
     {
         cout << "File open error" << endl;

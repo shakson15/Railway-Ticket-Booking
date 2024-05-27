@@ -7,8 +7,10 @@
 #include<map>
 #include <iomanip>
 #include <struct.hpp>
+
 using namespace std;
 class Journey;
+
 class Train
 {
 	private:
@@ -21,7 +23,7 @@ class Train
 		map<int,struct station*>* station;
 		vector<Journey*> journey;
 		
-		public:
+	public:
 		Train(string name,int number,int coaches, int seats,map<int,struct station*>* station,string destination,string from)
 		{
 			this->train_num=number;

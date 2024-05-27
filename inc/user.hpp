@@ -5,8 +5,10 @@
 #include <string>
 #include <iomanip>
 #include<vector>
+
 using namespace std;
 class Ticket;
+
 class User
 {
 	public:
@@ -65,7 +67,4 @@ class User
 		}
 				
 };
-
-
-
 #endif

@@ -12,6 +12,7 @@
 #include <struct.hpp>
 #include <limits>
 #include <algorithm>
+
 using namespace std;
 
 vector<Journey*>* temp2;
@@ -21,6 +22,7 @@ void show_wallet(User* ptr)
 {
 	cout << "Money In Wallet : " << ptr->get_balance() << endl << endl;
 }
+
 void add_money_to_wallet(User* ptr)
 {
 	int money;
@@ -52,27 +54,26 @@ void sign_in()
 {
 	vector<User*>* temp;
 	get_userid:
-		cout<<"enter the user id for search:";
-		string id;
-		cin>>id;
+	cout<<"enter the user id for search:";
+	string id;
+	cin>>id;
 		
-		temp=search_user(id);
-		User* ptr;
-		if (!temp)
+	temp=search_user(id);
+	User* ptr;
+	if (!temp)
+	{
+		cout<<"user id invalid:"<<endl;
+		return ;
+	}
+	else
+	{	
+		ptr=obj_return(temp,id);
+		if (ptr==NULL) 
 		{
-			cout<<"user id invalid:"<<endl;
-			return ;
+			cout<<"enter the vaild user id"<<endl;
+			goto get_userid;
 		}
-		else
-		{
-			
-			ptr=obj_return(temp,id);
-			if (ptr==NULL) 
-			{
-				cout<<"enter the vaild user id"<<endl;
-				goto get_userid;
-			}
-		}
+	}
 	while(1)
 	{
 		cout<<left;
@@ -199,7 +200,6 @@ Journey* seat_check(string onboard, string destination)
 	if(i==train_av.end())
 	{
 		goto lable_t;
-	
 	}
 	for(Train * n_ptr:train)
 	{

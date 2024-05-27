@@ -8,6 +8,7 @@
 #include "struct.hpp"
 #include "fun.hpp"
 #include <limits>
+
 using namespace std;
 int id = 0;
 class Train;
@@ -47,11 +48,9 @@ void binary_tree(User* temp)
 		else
 		{
 			user_id=user_id+to_string(2);
-			
 			auto temp_age=ptr->ptr_right;
 			if (temp->name[0]<='m'||temp->name[0]<='M')
 			{
-				
 				user_id=user_id+to_string(1);
 				auto temp_name=temp_age->left;
 				user_id=user_id+to_string(temp->id);
@@ -68,9 +67,7 @@ void binary_tree(User* temp)
 				temp->set_userid(user_id);	
 				cout << "User ID : " << user_id << endl;
 			}
-			
 		}
-			
 	}
 	else
 	{
@@ -121,8 +118,7 @@ void binary_tree(User* temp)
 				(temp_name->store_obj).push_back(temp);
 				temp->set_userid(user_id);	
 				cout << "User ID : " << user_id << endl;
-			}
-			
+			}	
 		}
 	}
 }
@@ -194,7 +190,6 @@ vector<User*>* search_user(string user_id)
 				return temp;
 			}
 		else return temp;
-			
 		}
 	else return temp;
 	}
@@ -226,15 +221,11 @@ vector<User*>* search_user(string user_id)
 				temp=&tree_user.ptr_right->ptr_right->right->store_obj;
 				return temp;
 			}
-			else return temp;
-			
+			else return temp;		
 		}
 		else return temp;
 	}
-	
 	else return temp;
-
-
 }
 
 User* obj_return(vector<User*>* temp,string user_id)
@@ -246,7 +237,6 @@ User* obj_return(vector<User*>* temp,string user_id)
 		{
 			return ptr;
 		}
-		
 	}
 	if(i==1)
 	{
@@ -263,17 +253,19 @@ void search(User* ptr)
 		ptr->getinfo();		
 	else
 		cout<<"Invalid userid"<<endl;
-	
-
 }
 
-void delete_element(vector<User*>* temp,string user_id) {
+void delete_element(vector<User*>* temp,string user_id) 
+{
     auto it = temp->begin();
-    while (it != temp->end()) {
-        if ((*it)->user_id == user_id) {
+    while (it != temp->end()) 
+	{
+        if ((*it)->user_id == user_id) 
+		{
             delete *it;  
             it = temp->erase(it);
-        } else {
+        } else 
+		{
             ++it;
         }
     }
@@ -290,9 +282,7 @@ void print_particular()
 	{
 		cout<<"user id must have more than 4 character"<<endl;
 		goto lable;
-	}
-	
-	
+	}	
 	temp=search_user(id);
 
 	if (!temp)
@@ -306,6 +296,7 @@ void print_particular()
 		search(ptr);
 	}
 }
+
 void delete_particular(string id)
 {
 	vector<User*>* temp;
@@ -390,41 +381,36 @@ void user()
 {
 	while(1)
 	{
-			cout<<left;
-			cout<<setw(10)<<"1"<<setw(10)<<"-"<<setw(20)<<"LOGIN"<<endl;
-			cout<<setw(10)<<"2"<<setw(10)<<"-"<<setw(20)<<"SIGNUP"<<endl;
-			cout<<setw(10)<<"3"<<setw(10)<<"-"<<setw(20)<<"EXIT"<<endl;
-			int choices;
-			cin>>choices;
-			
-			if (cin.fail()) 
-			{
-            			cin.clear();
-            	                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            			cout << "Invalid input. Please enter a number." << endl;
-            			continue;
-        		}
-			
-			switch(choices)
-			{
-				case 1:
-					sign_in();
-					break;
-				case 2:
-					create_user();
-					
-					break;
-				case 3:
-					return;
-			
-			}
+		cout<<left;
+		cout<<setw(10)<<"1"<<setw(10)<<"-"<<setw(20)<<"LOGIN"<<endl;
+		cout<<setw(10)<<"2"<<setw(10)<<"-"<<setw(20)<<"SIGNUP"<<endl;
+		cout<<setw(10)<<"3"<<setw(10)<<"-"<<setw(20)<<"EXIT"<<endl;
+		int choices;
+		cin>>choices;			
+		if (cin.fail()) 
+		{
+      		cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          	cout << "Invalid input. Please enter a number." << endl;
+       		continue;
+   		}			
+		switch(choices)
+		{
+			case 1:
+				sign_in();
+				break;
+			case 2:
+				create_user();			
+				break;
+			case 3:
+				return;
+		}
 	}
 }
 
 int main()
 {
 	init();
-	
 	while(1)
 	{
 		cout<<left;
@@ -434,12 +420,12 @@ int main()
 		int choices;
 		cin>>choices;
 		if (cin.fail()) 
-			{
-            			cin.clear();
-            	                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            			cout << "Invalid input. Please enter a number." << endl;
-            			continue;
-        		}
+		{
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number." << endl;
+            continue;
+       	}
 		switch(choices)
 		{
 			case 1:
@@ -452,6 +438,5 @@ int main()
 				exit(1);
 		}	
 	}
-	
 }
 #endif

@@ -32,7 +32,6 @@ struct station {
     int dis_from_start;
 };
 
-// Extern declarations of the global variables
 extern struct name a_to_m_male59;
 extern struct name a_to_m_female59;
 extern struct name a_to_m_male0;
@@ -49,7 +48,6 @@ extern struct gender male;
 extern struct gender female;
 extern struct user tree_user;
 
-// Function declarations
 void init();
 
 #endif // STRUCTS_HPP

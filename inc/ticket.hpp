@@ -6,8 +6,10 @@
 #include<vector>
 #include<map>
 #include <iomanip>
+
 using namespace std;
 extern int i;
+
 class Ticket
 {
 	int seat_num;
